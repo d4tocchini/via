@@ -26,16 +26,16 @@ function _via(via_container) {
   //// define the html containers
   this.control_panel_container = document.createElement('div');
   this.control_panel_container.setAttribute('id', 'via_control_panel_container');
-  this.via_container.appendChild(this.control_panel_container);
+  via_container.appendChild(this.control_panel_container);
 
   this.view_container = document.createElement('div');
   this.view_container.setAttribute('id', 'view_container');
-  this.via_container.appendChild(this.view_container);
+  via_container.appendChild(this.view_container);
 
   this.editor_container = document.createElement('div');
   this.editor_container.setAttribute('id', 'editor_container');
   this.editor_container.classList.add('hide');
-  this.via_container.appendChild(this.editor_container);
+  via_container.appendChild(this.editor_container);
 
   this.message_container = document.createElement('div');
   this.message_container.setAttribute('id', '_via_message_container');
@@ -44,7 +44,7 @@ function _via(via_container) {
   this.message_panel = document.createElement('div');
   this.message_panel.setAttribute('id', '_via_message');
   this.message_container.appendChild(this.message_panel);
-  this.via_container.appendChild(this.message_container);
+  via_container.appendChild(this.message_container);
 
   //// initialise content creators and managers
   this.ie = new _via_import_export(this.d);
@@ -74,8 +74,8 @@ function _via(via_container) {
   }.bind(this));
 
   // keyboard event handlers
-  //this.via_container.focus()
-  //this.via_container.addEventListener('keydown', this._keydown_handler.bind(this));
+  //via_container.focus()
+  //via_container.addEventListener('keydown', this._keydown_handler.bind(this));
   window.addEventListener('keydown', this._keydown_handler.bind(this)); // @todo: should be attached only to VIA application container
 
   // update VIA version number

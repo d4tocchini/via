@@ -164,9 +164,9 @@ _via_control_panel.prototype._set_region_shape = function(shape) {
   this.emit_event( 'region_shape', {'shape':shape});
   for ( var si in this.shape_selector_list ) {
     if ( si === shape ) {
-      this.shape_selector_list[si].classList.add('svg_button_selected');
+      this.shape_selector_list[si].classList.add('selected'); //'svg_button_selected');
     } else {
-      this.shape_selector_list[si].classList.remove('svg_button_selected');
+      this.shape_selector_list[si].classList.remove('selected'); //'svg_button_selected');
     }
   }
 }

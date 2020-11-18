@@ -529,20 +529,19 @@ _via_file_annotator.prototype._file_html_element_ready = function() {
   this.c.appendChild(this.input);
 
   // spatial metadata container (i.e. metadata of image or video frame regions)
-  this.smetadata_container = document.createElement('div');
-  this.smetadata_container.setAttribute('class', 'metadata_container');
-  this.smetadata_container.classList.add('hide');
-  this.smetadata_container.setAttribute('id', 'smetadata_container');
-  this.smetadata_container.innerHTML = '';
-  this.c.appendChild(this.smetadata_container);
+  const smetadata_container = document.createElement('div');
+  this.smetadata_container = smetadata_container;
+  smetadata_container.setAttribute('id', 'smetadata_container');
+  smetadata_container.setAttribute('class', 'hud metadata_container hide');
+  this.c.appendChild(smetadata_container);
 
   // file metadata container (e.g. caption)
-  this.fmetadata_container = document.createElement('div');
-  this.fmetadata_container.setAttribute('class', 'metadata_container');
-  this.fmetadata_container.classList.add('hide');
-  this.fmetadata_container.setAttribute('id', 'fmetadata_container');
-  this.fmetadata_container.innerHTML = '';
-  this.c.appendChild(this.fmetadata_container);
+  const fmetadata_container = document.createElement('div');
+  this.fmetadata_container = fmetadata_container;
+  fmetadata_container.setAttribute('id', 'fmetadata_container');
+  fmetadata_container.setAttribute('class', 'hud metadata_container hide');
+  this.c.appendChild(fmetadata_container);
+
   this._fmetadata_show();
 
   // draw all existing regions
@@ -2567,8 +2566,8 @@ _via_file_annotator.prototype._smetadata_set_position = function() {
     x = ymax_x + this.conf.REGION_SMETADATA_MARGIN;
     break;
   }
-  this.smetadata_container.style.left = Math.round(x) + 'px';
-  this.smetadata_container.style.top  = Math.round(y) + 'px';
+  this.smetadata_container.style.left = (x|0) + 'px';
+  this.smetadata_container.style.top  = (y|0) + 'px';
 }
 
 _via_file_annotator.prototype._smetadata_toggle = function() {

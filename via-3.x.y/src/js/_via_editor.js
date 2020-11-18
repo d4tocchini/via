@@ -76,36 +76,38 @@ _via_editor.prototype.show = function() {
   toolbar.appendChild(close_button);
 
   // metadata
-  this.metadata_container = document.createElement('div');
-  this.metadata_container.setAttribute('id', 'metadata_container');
-  this.metadata_container.setAttribute('class', 'metadata_container');
+  const metadata_container = document.createElement('div');
+  this.metadata_container = metadata_container;
+  metadata_container.setAttribute('id', 'metadata_container');
+  metadata_container.setAttribute('class', 'metadata_container');
   this.metadata_view = document.createElement('table');
-  var metadata_title = document.createElement('h2');
+  const metadata_title = document.createElement('h2');
   metadata_title.innerHTML = 'Metadata';
-  this.metadata_container.appendChild( metadata_title );
-  this.metadata_container.appendChild( this.metadata_view );
+  metadata_container.appendChild( metadata_title );
+  metadata_container.appendChild( this.metadata_view );
 
   // attribute
-  this.attribute_container = document.createElement('div');
-  this.attribute_container.setAttribute('id', 'attribute_container');
-  this.attribute_container.setAttribute('class', 'attribute_container');
+  const attribute_container = document.createElement('div');
+  this.attribute_container = attribute_container;
+  attribute_container.setAttribute('id', 'attribute_container');
+  attribute_container.setAttribute('class', 'attribute_container');
   this.attribute_view = document.createElement('table');
-  var attribute_title = document.createElement('h2');
+  const attribute_title = document.createElement('h2');
   attribute_title.innerHTML = 'Attributes';
+  attribute_container.appendChild( attribute_title );
+  attribute_container.appendChild( this.get_attribute_name_entry_panel() );
+  attribute_container.appendChild( this.attribute_view );
 
-  this.attribute_container.appendChild( attribute_title );
-  this.attribute_container.appendChild( this.get_attribute_name_entry_panel() );
-  this.attribute_container.appendChild( this.attribute_view );
-
-  this.content_container = document.createElement('div');
-  this.content_container.setAttribute('class', 'content_container');
-  this.content_container.appendChild(this.attribute_container);
-  this.content_container.appendChild(this.metadata_container);
+  const content_container = document.createElement('div');
+  this.content_container = content_container;
+  content_container.setAttribute('class', 'content_container');
+  content_container.appendChild(attribute_container);
+  content_container.appendChild(metadata_container);
 
   // add everything to container
   this.c.appendChild(toolbar);
   //this.c.appendChild(this.editor_content_selector);
-  this.c.appendChild(this.content_container);
+  this.c.appendChild(content_container);
 
   this.attributes_update();
   //this.metadata_update();
