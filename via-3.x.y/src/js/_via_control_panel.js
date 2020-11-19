@@ -72,9 +72,9 @@ function _via_control_panel(el, via) {
     this.append(logo_panel);
 
     // this.append(this.via.vm.c);
-    // this._add_view_manager_tools();
+    this._add_view_manager_tools();
     // this._add_spacer();
-    // this._add_project_tools();
+    this._add_project_tools();
 
     // this._add_spacer();
 
@@ -88,14 +88,14 @@ function _via_control_panel(el, via) {
 
     // this._add_spacer();
 
-    // if ( document.getElementById('micon_zoomin') ) {
-    //   var zoom = _via_util_get_svg_button('micon_zoomin', 'Enable/disable magnifying glass to inspect finer details');
-    //   zoom.addEventListener('click', function() {
-    //     this.emit_event( 'zoom_toggle', {});
-    //   }.bind(this));
-    //   this.append(zoom);
-    //   this._add_spacer();
-    // }
+    if ( document.getElementById('micon_zoomin') ) {
+      var zoom = _via_util_get_svg_button('micon_zoomin', 'Enable/disable magnifying glass to inspect finer details');
+      zoom.addEventListener('click', function() {
+        this.emit_event( 'zoom_toggle', {});
+      }.bind(this));
+      this.append(zoom);
+      this._add_spacer();
+    }
 
     this._add_project_share_tools();
 
