@@ -28,7 +28,8 @@ function _via_control_panel(el, via) {
   proto._add_help_tools = _add_help_tools;
   proto._add_view_manager_tools = _add_view_manager_tools;
   proto._add_project_tools = _add_project_tools;
-  proto._add_region_shape_selector = _add_region_shape_selector;
+  proto._has_shape_tools = _has_shape_tools;
+  proto._create_shape_tools = _create_shape_tools;
   proto._add_spacer = _add_spacer;
   proto._set_region_shape = _set_region_shape;
   proto._page_show_import_export = _page_show_import_export;
@@ -62,6 +63,7 @@ function _via_control_panel(el, via) {
   function _init(type) {
 
     this.c.innerHTML = '';
+    this.c.classList.add('toolbar')
 
     var logo_panel = document.createElement('div');
     logo_panel.setAttribute('class', 'logo');
@@ -74,19 +76,17 @@ function _via_control_panel(el, via) {
     // this._add_spacer();
     // this._add_project_tools();
 
-    this._add_spacer();
+    // this._add_spacer();
 
-    this._add_region_shape_selector();
+    if (this._has_shape_tools())
+      this.append(this._create_shape_tools());
 
-    this._add_spacer();
+    // this._add_spacer();
 
-    var editor = _via_util_get_svg_button('micon_insertcomment', 'Show/Hide Attribute Editor');
-    editor.addEventListener('click', function() {
-      this.emit_event( 'editor_toggle', {});
-    }.bind(this));
-    this.append(editor);
 
-    this._add_spacer();
+    this.append(create_item__attr_editor(this));
+
+    // this._add_spacer();
 
     // if ( document.getElementById('micon_zoomin') ) {
     //   var zoom = _via_util_get_svg_button('micon_zoomin', 'Enable/disable magnifying glass to inspect finer details');
@@ -102,6 +102,14 @@ function _via_control_panel(el, via) {
     this._add_spacer();
 
     this._add_help_tools();
+  }
+
+  function create_item__attr_editor(self) {
+    const btn = _via_util_get_svg_button('micon_insertcomment', 'Show/Hide Attribute Editor');
+    btn.addEventListener('click', function() {
+      self.emit_event( 'editor_toggle', {});
+    });
+    return btn;
   }
 
   function _add_spacer() {
@@ -160,12 +168,12 @@ function _via_control_panel(el, via) {
     this.append(group);
   }
 
-  function _add_region_shape_selector() {
-    const group = __create_tool_group('shape-tools');
+  function _has_shape_tools() {
+    return document.getElementById('shape_point') !== null;
+  }
 
-    if ( document.getElementById('shape_point') === null ) {
-      return;
-    }
+  function _create_shape_tools() {
+    const group = __create_tool_group('shape-tools');
 
     const rect = _via_util_get_svg_button('shape_rectangle', 'Rectangle', 'RECTANGLE');
     rect.addEventListener('click', function() {
@@ -222,9 +230,9 @@ function _via_control_panel(el, via) {
     }.bind(this));
     group.appendChild(point);
 
-    this.append(group);
-
     this.shape_selector_list = { 'POINT':point, 'RECTANGLE':rect, 'EXTREME_RECTANGLE':extreme_rect, 'CIRCLE':circle, 'EXTREME_CIRCLE':extreme_circle, 'ELLIPSE':ellipse, 'LINE':line, 'POLYGON':polygon, 'POLYLINE':polyline };
+
+    return group;
   }
 
   function _set_region_shape(shape) {

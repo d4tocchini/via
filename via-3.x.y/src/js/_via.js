@@ -25,20 +25,19 @@ function _via(via_container) {
   }
 
   //// define the html containers
-  const view_manager_container = document.createElement('div');
+
 
   const control_panel_container = document.createElement('div');
   control_panel_container.setAttribute('id', 'via_control_panel_container');
-  via_container.appendChild(control_panel_container);
+
 
   const view_container = document.createElement('div');
   view_container.setAttribute('id', 'view_container');
-  via_container.appendChild(view_container);
+
 
   const editor_container = document.createElement('div');
   editor_container.setAttribute('id', 'editor_container');
   editor_container.classList.add('hide');
-  via_container.appendChild(editor_container);
 
   const message_container = document.createElement('div');
   message_container.setAttribute('id', '_via_message_container');
@@ -47,19 +46,36 @@ function _via(via_container) {
   const message_panel = document.createElement('div');
   message_panel.setAttribute('id', '_via_message');
   message_container.appendChild(message_panel);
-  via_container.appendChild(message_container);
 
+  const sidebar_el = document.createElement("div");
+  sidebar_el.setAttribute('id', 'via_sidebar');
+
+  const vm_el = document.createElement('div');
+  vm_el.setAttribute('id', 'via_vm');
 
   //// initialise content creators and managers
   this.ie = new _via_import_export(this.d);
   this.va = new _via_view_annotator(this.d, view_container);
   this.editor = new _via_editor(this.d, this.va, editor_container);
-  this.vm = new _via_view_manager(this.d, this.va, view_manager_container);
+  this.vm = new _via_view_manager(this.d, this.va, vm_el);
   this.vm._init();
 
-  // control panel shows the view_manager_container
+  sidebar_el.appendChild(this.vm.c);
+  // control panel shows the vm_el
   this.cp = new _via_control_panel(control_panel_container, this);
   this.cp._set_region_shape('RECTANGLE');
+
+  // mount
+  via_container.appendChild(control_panel_container);
+  via_container.appendChild(view_container);
+  via_container.appendChild(editor_container);
+  via_container.appendChild(message_container);
+  via_container.appendChild(sidebar_el);
+
+
+
+  // TODO: sidebar
+
 
   // event handlers for buttons in the control panel
   this.cp.on_event('region_shape', this._ID, function(data, event_payload) {
@@ -140,3 +156,5 @@ _via.prototype._keydown_handler = function(e) {
     this.va._on_event_keydown(e);
   }
 }
+
+

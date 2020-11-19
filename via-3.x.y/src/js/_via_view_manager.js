@@ -13,7 +13,6 @@ function _via_view_manager(data, view_annotator, container) {
   const _ID = '_via_view_manager_'
   this._ID = _ID;
   this.d = data;
-  window.data = data;
   this.va = view_annotator;
   this.c = container;
 

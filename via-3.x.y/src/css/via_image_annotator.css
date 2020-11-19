@@ -239,7 +239,11 @@ select {
     backdrop-filter: blur(6px); background-color: hsl(0deg 0% 0% / 50%);
     z-index:1001;
 }
-
+.toolbar {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
 /* Optimization flags
     - https://developer.mozilla.org/en-US/docs/Web/CSS/contain
     - https://readium.org/readium-css/docs/CSS25-performance_hacks.html
@@ -266,11 +270,19 @@ html, body { margin:0; padding:0; box-sizing:border-box; color:var(--ctext)}
     background-color:var(--cbg);
     height:100vh; max-height:100vh; width:100vw;
 }
+#via_sidebar {
+    grid-area:sbar;
+    border-right:1px solid var(--cbox);
+}
+#via_sidebar,
+#via_sidebar > #via_vm {
+    display:flex; flex-direction: column;
+}
 
 /* top control panel */
 #via_control_panel_container {
     grid-area: tbar;
-    display:block; border:var(--ctl-pnl_bdr); background: var(--gui_bg); padding:0.4em 0.5em;
+    border:var(--ctl-pnl_bdr); background: var(--gui_bg);
 }
 /*#via_control_panel_container { display:block; border:1px solid #707070; padding:0.4em 0.5em; height:2.2em; overflow-y:hidden; }*/
 #via_control_panel_container * { display:inline-block; margin:0 calc(100vw/180); outline:none; vertical-align:middle; }
