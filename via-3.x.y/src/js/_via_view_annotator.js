@@ -24,6 +24,7 @@ function _via_view_annotator(data, container ) {
   this._ID = '_via_view_annotator_';
   this.d = data;
   this.c = container;
+  // container.classList.add("Oframe");
   this.file_annotator = [];
   this.view_mode = _VIA_VIEW_MODE.UNKNOWN;
 

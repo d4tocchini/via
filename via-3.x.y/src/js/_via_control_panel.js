@@ -8,9 +8,10 @@
  */
 
 
-function _via_control_panel(control_panel_container, via) {
+function _via_control_panel(el, via) {
   this._ID = '_via_control_panel_';
-  this.c   = control_panel_container;
+
+  this.c   = el;
   this.via = via;
 
   // registers on_event(), emit_event(), ... methods from
@@ -68,12 +69,10 @@ function _via_control_panel(control_panel_container, via) {
     logo_panel.innerHTML = '<svg width="68" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 168.96"><defs><linearGradient id="a" y1="84.48" x2="1000" y2="84.48" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"></stop><stop offset="0.11" stop-color="#fff" stop-opacity="0.797"></stop><stop offset="0.239" stop-color="#fff" stop-opacity="0.588"></stop><stop offset="0.37" stop-color="#fff" stop-opacity="0.408"></stop><stop offset="0.499" stop-color="#fff" stop-opacity="0.261"></stop><stop offset="0.628" stop-color="#fff" stop-opacity="0.147"></stop><stop offset="0.755" stop-color="#fff" stop-opacity="0.065"></stop><stop offset="0.88" stop-color="#fff" stop-opacity="0.016"></stop><stop offset="1" stop-color="#fff" stop-opacity="0"></stop></linearGradient></defs><title>logo</title><polygon points="1000 33.576 1000 0 33.576 0 0 0 0 33.576 0 67.692 0 101.268 0 135.384 0 168.96 33.576 168.96 1000 168.96 1000 135.384 33.576 135.384 33.576 101.268 1000 101.268 1000 67.692 33.576 67.692 33.576 33.576 1000 33.576" style="fill:url(#a)"></polygon></svg>';
     this.append(logo_panel);
 
-    this.append(this.via.vm.c);
-    this._add_view_manager_tools();
-
-    this._add_spacer();
-
-    this._add_project_tools();
+    // this.append(this.via.vm.c);
+    // this._add_view_manager_tools();
+    // this._add_spacer();
+    // this._add_project_tools();
 
     this._add_spacer();
 

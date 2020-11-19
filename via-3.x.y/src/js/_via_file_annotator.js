@@ -530,16 +530,26 @@ _via_file_annotator.prototype._file_html_element_ready = function() {
 
   // spatial metadata container (i.e. metadata of image or video frame regions)
   const smetadata_container = document.createElement('div');
+  const smeta_pos = new CSSTranslate(CSS.px(0), CSS.px(0), CSS.px(0));
+  const smeta_transform = new CSSTransformValue([smeta_pos]);
   this.smetadata_container = smetadata_container;
+  this._smeta_move = function (x, y) {
+    requestAnimationFrame(function(){
+      smeta_pos.x.value = x;
+      smeta_pos.y.value = y;
+      smetadata_container.attributeStyleMap.set('transform', smeta_transform);
+    })
+  }
+  smetadata_container.attributeStyleMap.set('transform', smeta_transform);
   smetadata_container.setAttribute('id', 'smetadata_container');
-  smetadata_container.setAttribute('class', 'hud metadata_container hide');
+  smetadata_container.setAttribute('class', 'hud metadata_container hide Ogpu Ocontent');
   this.c.appendChild(smetadata_container);
 
   // file metadata container (e.g. caption)
   const fmetadata_container = document.createElement('div');
   this.fmetadata_container = fmetadata_container;
   fmetadata_container.setAttribute('id', 'fmetadata_container');
-  fmetadata_container.setAttribute('class', 'hud metadata_container hide');
+  fmetadata_container.setAttribute('class', 'hud metadata_container hide Ogpu Ocontent');
   this.c.appendChild(fmetadata_container);
 
   this._fmetadata_show();
@@ -2566,8 +2576,9 @@ _via_file_annotator.prototype._smetadata_set_position = function() {
     x = ymax_x + this.conf.REGION_SMETADATA_MARGIN;
     break;
   }
-  this.smetadata_container.style.left = (x|0) + 'px';
-  this.smetadata_container.style.top  = (y|0) + 'px';
+  this._smeta_move(x|0, y|0);
+  // this.smetadata_container.style.left = (x|0) + 'px';
+  // this.smetadata_container.style.top  = (y|0) + 'px';
 }
 
 _via_file_annotator.prototype._smetadata_toggle = function() {

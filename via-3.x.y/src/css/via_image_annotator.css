@@ -176,7 +176,7 @@ https://cdn.redmondpie.com/wp-content/uploads/2020/08/big-sur-dark-mode-1200.jpg
 
 }
 :root {
-    --hit-height: 24px;
+    --hit-height: 28px;
     --hit-xpad: 8px;
     --icon-stroke-w: 1px;
     --ctl-pnl_bdr: none; /* --ctl-pnl_bdr: 1px solid #707070; */
@@ -239,6 +239,17 @@ select {
     backdrop-filter: blur(6px); background-color: hsl(0deg 0% 0% / 50%);
     z-index:1001;
 }
+
+/* Optimization flags
+    - https://developer.mozilla.org/en-US/docs/Web/CSS/contain
+    - https://readium.org/readium-css/docs/CSS25-performance_hacks.html
+*/
+.Ogpu {backface-visibility: hidden; transform: translate3d(0px,0px,0px);}
+.Ostrict {contain: size layout style paint;}
+.Ocontent {contain: layout style paint;}
+.Oframe {contain: size paint style;}
+.Opaint {contain: paint;}
+
 html {
     font-size: 12px;
 }
@@ -248,13 +259,19 @@ html, body { margin:0; padding:0; box-sizing:border-box; color:var(--ctext)}
 
 .via_container {
     position:absolute; top:0; left:0;
-    display:grid; grid-template-rows:auto 1fr; grid-row-gap:0.5em;
+    display:grid;
+    grid-template-areas:
+        "tbar tbar tbar"
+        "sbar main obar";  grid-template-rows: 52px 1fr; grid-template-columns: calc(100vw/9) 1fr 48px;
     background-color:var(--cbg);
     height:100vh; max-height:100vh; width:100vw;
 }
 
 /* top control panel */
-#via_control_panel_container { display:block; border:var(--ctl-pnl_bdr); background: var(--gui_bg); padding:0.4em 0.5em; }
+#via_control_panel_container {
+    grid-area: tbar;
+    display:block; border:var(--ctl-pnl_bdr); background: var(--gui_bg); padding:0.4em 0.5em;
+}
 /*#via_control_panel_container { display:block; border:1px solid #707070; padding:0.4em 0.5em; height:2.2em; overflow-y:hidden; }*/
 #via_control_panel_container * { display:inline-block; margin:0 calc(100vw/180); outline:none; vertical-align:middle; }
 #via_control_panel_container .spacer { padding:0 0.5em; }
@@ -266,7 +283,10 @@ html, body { margin:0; padding:0; box-sizing:border-box; color:var(--ctext)}
 #via_control_panel_container input#via_project_name_input { display:inline-block;  width:11.5em; }
 
 /* View Container : video + temporal segmenter */
-#view_container { display:grid; grid-row-gap:0.5em; } /* grid-template-rows is set dynamically */
+#view_container {
+    grid-area: main;
+    display:grid; grid-row-gap:0.5em;
+} /* grid-template-rows is set dynamically */
 
 /* view content: image, video, audio, image pair, etc. */
 #view_container > .view_content_container { display:grid; } /* grid-template-rows value set by _view_annotate_single_video(), video_annotate_single_image(), etc methods in _via_view_annotator.js */
